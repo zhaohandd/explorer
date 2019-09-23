@@ -1,0 +1,12 @@
+.classpath
+.project
+.idea/
+.settings/
+.svn/
+*.iml
+*.war
+target/
+jar/
+
+application-dev.yml
+generator.properties

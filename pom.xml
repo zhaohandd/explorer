@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <modules>
+        <module>explorer-common</module>
+        <module>explorer-common-web</module>
+        <module>explorer-run-liver</module>
+        <module>explorer-generator</module>
+    </modules>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.8.RELEASE</version>
+    </parent>
+
+    <groupId>zju.edu.friendlyarm</groupId>
+    <artifactId>explorer</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>${basedir}/jar</directory>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.21.0</version>
+                <configuration>
+                    <useSystemClassLoader>false</useSystemClassLoader>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.2</version>
+                <executions>
+                    <!--  准备指向Jacoco运行时Agent的属性，在测试执行之前传递给虚拟机参数  -->
+                    <execution>
+                        <id>pre-unit-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <!--  设置覆盖率数据文件路径  -->
+                            <destFile>
+                                ${project.build.directory}/coverage-reports/jacoco-ut.exec
+                            </destFile>
+                        </configuration>
+                    </execution>
+                    <!--  确保在单元测试执行之后生成覆盖率报告  -->
+                    <execution>
+                        <id>post-unit-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <!--  引用覆盖率文件的路径 -->
+                            <dataFile>
+                                ${project.build.directory}/coverage-reports/jacoco-ut.exec
+                            </dataFile>
+                            <!--  设置覆盖率报告存放路径.  -->
+                            <outputDirectory>${project.build.directory}/coverage-reports/jacoco-ut</outputDirectory>
+                            <excludes>
+                                <!--  排除配置文件  -->
+                                <exclude>**/configuration/**/*</exclude>
+                                <!--  排除pojo对象  -->
+                                <exclude>**/pojo/**/*</exclude>
+                                <!--  排除枚举类  -->
+                                <exclude>**/enums/**/*</exclude>
+                                <!--  排除工具类  -->
+                                <exclude>**/utils/**/*</exclude>
+                                <!--  排除启动类  -->
+                                <exclude>**/*Application.*</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>move</id>
+                            <phase>package</phase>
+                            <configuration>
+                                <tasks>
+                                    <move todir="../jar">
+                                        <fileset dir="${project.build.directory}">
+                                            <include name="*.jar"/>
+                                        </fileset>
+                                    </move>
+                                </tasks>
+                            </configuration>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+
+</project>
