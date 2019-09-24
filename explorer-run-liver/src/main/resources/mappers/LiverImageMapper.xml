@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zju.edu.friendlyarm.mapper.LiverImageMapper">
+  <resultMap id="BaseResultMap" type="zju.edu.friendlyarm.pojo.LiverImage">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="doctor_num" jdbcType="DOUBLE" property="doctorNum" />
+    <result column="patient_num" jdbcType="DOUBLE" property="patientNum" />
+    <result column="ralative_path" jdbcType="VARCHAR" property="ralativePath" />
+    <result column="image_name" jdbcType="VARCHAR" property="imageName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, doctor_num, patient_num, ralative_path, image_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from liver_image
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from liver_image
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="zju.edu.friendlyarm.pojo.LiverImage">
+    insert into liver_image (id, doctor_num, patient_num, 
+      ralative_path, image_name)
+    values (#{id,jdbcType=INTEGER}, #{doctorNum,jdbcType=DOUBLE}, #{patientNum,jdbcType=DOUBLE}, 
+      #{ralativePath,jdbcType=VARCHAR}, #{imageName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="zju.edu.friendlyarm.pojo.LiverImage">
+    insert into liver_image
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="doctorNum != null">
+        doctor_num,
+      </if>
+      <if test="patientNum != null">
+        patient_num,
+      </if>
+      <if test="ralativePath != null">
+        ralative_path,
+      </if>
+      <if test="imageName != null">
+        image_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="doctorNum != null">
+        #{doctorNum,jdbcType=DOUBLE},
+      </if>
+      <if test="patientNum != null">
+        #{patientNum,jdbcType=DOUBLE},
+      </if>
+      <if test="ralativePath != null">
+        #{ralativePath,jdbcType=VARCHAR},
+      </if>
+      <if test="imageName != null">
+        #{imageName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="zju.edu.friendlyarm.pojo.LiverImage">
+    update liver_image
+    <set>
+      <if test="doctorNum != null">
+        doctor_num = #{doctorNum,jdbcType=DOUBLE},
+      </if>
+      <if test="patientNum != null">
+        patient_num = #{patientNum,jdbcType=DOUBLE},
+      </if>
+      <if test="ralativePath != null">
+        ralative_path = #{ralativePath,jdbcType=VARCHAR},
+      </if>
+      <if test="imageName != null">
+        image_name = #{imageName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="zju.edu.friendlyarm.pojo.LiverImage">
+    update liver_image
+    set doctor_num = #{doctorNum,jdbcType=DOUBLE},
+      patient_num = #{patientNum,jdbcType=DOUBLE},
+      ralative_path = #{ralativePath,jdbcType=VARCHAR},
+      image_name = #{imageName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
