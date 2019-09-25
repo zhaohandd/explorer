@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import zju.edu.friendlyarm.pojo.LiverImage;
 
 
-@Service
 public interface LiverImageMapper {
     int deleteByPrimaryKey(Integer id);
 
