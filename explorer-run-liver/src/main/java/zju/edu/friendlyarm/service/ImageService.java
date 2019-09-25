@@ -17,7 +17,9 @@ public interface ImageService {
     /**
      * 模型运行，调用python
      */
-    void run();
+    void run(String imageName);
+
+
 
 
 }

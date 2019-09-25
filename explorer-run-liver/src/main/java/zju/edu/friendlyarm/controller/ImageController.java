@@ -31,7 +31,7 @@ public class ImageController {
     }
 
     @ApiOperation("模型运行")
-    public boolean runModel() {
+    public boolean runModel(String imageName) {
         return false;
     }
 
