@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Data
 @ApiModel(description = "image资源")
@@ -23,9 +24,13 @@ public class LiverImage {
 
     @ApiModelProperty(value = "图片相对路径，文件夹使用“/”分割")
     @NotNull
-    private String ralativePath;
+    private String relativePath;
 
     @ApiModelProperty(value = "图片名称")
     private String imageName;
+
+    private LocalDateTime updateAt;
+
+    private LocalDateTime createAt;
 
 }
