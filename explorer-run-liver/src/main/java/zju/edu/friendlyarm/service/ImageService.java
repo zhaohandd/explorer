@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author xhzhao
@@ -26,7 +27,12 @@ public interface ImageService {
      */
     void run(String imageName);
 
-
-
+    /**
+     * 根据医生账号和病患账号获取患者记录
+     * @param doctorNum 医生账号
+     * @param patientNum 病患账号
+     * @return url的列表
+     */
+    List<String> getOldRecords(Double doctorNum, Double patientNum);
 
 }

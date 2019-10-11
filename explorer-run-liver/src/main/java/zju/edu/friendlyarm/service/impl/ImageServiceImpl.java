@@ -19,8 +19,10 @@ import zju.edu.friendlyarm.util.FileAccessHelper;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,6 +45,7 @@ public class ImageServiceImpl implements ImageService {
     public Integer createOrUpdate(Double doctorNum, Double patientNum, MultipartFile file) throws IOException {
         Map<File, MultipartFile> toSave = new HashMap<>(1);
         String fileName = file.getOriginalFilename();
+        fileName = fileName.substring(fileName.lastIndexOf("\\") + 1);
         fileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + "_" + fileName;
         LiverImage image = new LiverImage();
         image.setDoctorNum(doctorNum);
@@ -69,5 +72,16 @@ public class ImageServiceImpl implements ImageService {
         } catch (ExecutorNotFoundExecption | ExecuteException executorNotFoundExecption) {
             logger.info("{}执行出错", python2Executor);
         }
+    }
+
+    @Override
+    public List<String> getOldRecords(Double doctorNum, Double patientNum) {
+        List<String> list = new ArrayList<>();
+        List<LiverImage> images = imageMapper.selectByNum(doctorNum, patientNum);
+        for (int i = 0; i < images.size(); i++) {
+            String url = fileAccessHelper.buildHttpUrl(images.get(i).getRelativePath(), images.get(i).getUpdateAt());
+            list.add(url);
+        }
+        return list;
     }
 }

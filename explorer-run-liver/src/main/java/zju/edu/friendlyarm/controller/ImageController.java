@@ -21,8 +21,6 @@ import zju.edu.friendlyarm.util.FileAccessHelper;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,7 +42,7 @@ public class ImageController {
 
     @ApiOperation("图片文件上传")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Integer createOrUpdate(@RequestParam @NotNull Double doctorNum, @RequestParam @NotNull Double patientNum, @RequestPart @NotEmpty MultipartFile file) throws IOException {
+    public Integer createOrUpdate(@RequestParam @NotNull Double doctorNum, @RequestParam @NotNull Double patientNum, @RequestPart MultipartFile file) throws IOException {
         return imageService.createOrUpdate(doctorNum, patientNum, file);
 
     }
@@ -60,15 +58,15 @@ public class ImageController {
     @GetMapping("{id}/url")
     public String getImageUrl(@PathVariable Integer id) {
         LiverImage image = imageMapper.selectByPrimaryKey(id);
-        if (image != null && image.getRelativePath() != null) {
+        if (image != null) {
             return fileAccessHelper.buildHttpUrl(image.getRelativePath(), image.getUpdateAt());
         }
         return null;
     }
 
     @ApiOperation("查询历史图片http地址")
-    @GetMapping("{doctorNum}/{patientNum}")
+    @GetMapping("{doctorNum}/{patientNum}/url")
     public List<String> getImageUrls(@PathVariable Double doctorNum, @PathVariable Double patientNum) {
-        return null;
+        return imageService.getOldRecords(doctorNum, patientNum);
     }
 }
