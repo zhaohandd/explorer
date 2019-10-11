@@ -5,11 +5,11 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="doctor_num" jdbcType="DOUBLE" property="doctorNum" />
     <result column="patient_num" jdbcType="DOUBLE" property="patientNum" />
-    <result column="ralative_path" jdbcType="VARCHAR" property="ralativePath" />
+    <result column="relative_path" jdbcType="VARCHAR" property="relativePath" />
     <result column="image_name" jdbcType="VARCHAR" property="imageName" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, doctor_num, patient_num, ralative_path, image_name
+    id, doctor_num, patient_num, relative_path, image_name
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -17,15 +17,22 @@
     from liver_image
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByNum" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from liver_image
+    where doctor_num = #{doctorNum,jdbcType=DOUBLE}
+    AND patient_num = #{patientNum,jdbcType=DOUBLE}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from liver_image
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="zju.edu.friendlyarm.pojo.LiverImage">
     insert into liver_image (id, doctor_num, patient_num, 
-      ralative_path, image_name)
+      relative_path, image_name)
     values (#{id,jdbcType=INTEGER}, #{doctorNum,jdbcType=DOUBLE}, #{patientNum,jdbcType=DOUBLE}, 
-      #{ralativePath,jdbcType=VARCHAR}, #{imageName,jdbcType=VARCHAR})
+      #{relativePath,jdbcType=VARCHAR}, #{imageName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="zju.edu.friendlyarm.pojo.LiverImage">
     insert into liver_image
@@ -39,8 +46,8 @@
       <if test="patientNum != null">
         patient_num,
       </if>
-      <if test="ralativePath != null">
-        ralative_path,
+      <if test="relativePath != null">
+        relative_path,
       </if>
       <if test="imageName != null">
         image_name,
@@ -56,8 +63,8 @@
       <if test="patientNum != null">
         #{patientNum,jdbcType=DOUBLE},
       </if>
-      <if test="ralativePath != null">
-        #{ralativePath,jdbcType=VARCHAR},
+      <if test="relativePath != null">
+        #{relativePath,jdbcType=VARCHAR},
       </if>
       <if test="imageName != null">
         #{imageName,jdbcType=VARCHAR},
@@ -73,8 +80,8 @@
       <if test="patientNum != null">
         patient_num = #{patientNum,jdbcType=DOUBLE},
       </if>
-      <if test="ralativePath != null">
-        ralative_path = #{ralativePath,jdbcType=VARCHAR},
+      <if test="relativePath != null">
+        relative_path = #{ralativePath,jdbcType=VARCHAR},
       </if>
       <if test="imageName != null">
         image_name = #{imageName,jdbcType=VARCHAR},
@@ -86,8 +93,9 @@
     update liver_image
     set doctor_num = #{doctorNum,jdbcType=DOUBLE},
       patient_num = #{patientNum,jdbcType=DOUBLE},
-      ralative_path = #{ralativePath,jdbcType=VARCHAR},
+      relative_path = #{relativePath,jdbcType=VARCHAR},
       image_name = #{imageName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
 </mapper>

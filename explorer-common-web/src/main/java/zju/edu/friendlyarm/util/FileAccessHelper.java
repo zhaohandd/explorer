@@ -30,7 +30,8 @@ public class FileAccessHelper {
     public String buildHttpUrl(String relativePath, LocalDateTime updateAt) {
         Objects.requireNonNull(relativePath);
         String url = FILE_JOINER.join(fileAccessProperties.getHttpServer(), relativePath);
-        return url + "?time=" + Date.from((updateAt.toInstant(ZoneOffset.of("+8"))));
+        return url;
+//        return url + "?time=" + Date.from((updateAt.toInstant(ZoneOffset.of("+8"))));
     }
 
     /**
