@@ -45,8 +45,10 @@ public class ImageServiceImpl implements ImageService {
     public Integer createOrUpdate(Double doctorNum, Double patientNum, MultipartFile file) throws IOException {
         Map<File, MultipartFile> toSave = new HashMap<>(1);
         String fileName = file.getOriginalFilename();
-        fileName = fileName.substring(fileName.lastIndexOf("\\") + 1);
-        fileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + "_" + fileName;
+        if (null != fileName) {
+            fileName = fileName.substring(fileName.lastIndexOf("\\") + 1);
+            fileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + "_" + fileName;
+        }
         LiverImage image = new LiverImage();
         image.setDoctorNum(doctorNum);
         image.setPatientNum(patientNum);
@@ -78,8 +80,8 @@ public class ImageServiceImpl implements ImageService {
     public List<String> getOldRecords(Double doctorNum, Double patientNum) {
         List<String> list = new ArrayList<>();
         List<LiverImage> images = imageMapper.selectByNum(doctorNum, patientNum);
-        for (int i = 0; i < images.size(); i++) {
-            String url = fileAccessHelper.buildHttpUrl(images.get(i).getRelativePath(), images.get(i).getUpdateAt());
+        for (LiverImage image : images) {
+            String url = fileAccessHelper.buildHttpUrl(image.getRelativePath(), image.getUpdateAt());
             list.add(url);
         }
         return list;

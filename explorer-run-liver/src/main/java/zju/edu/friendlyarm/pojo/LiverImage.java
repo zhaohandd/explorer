@@ -7,6 +7,9 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
+/**
+ * @author xhzhao
+ */
 @Data
 @ApiModel(description = "image资源")
 public class LiverImage {

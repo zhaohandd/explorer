@@ -6,6 +6,9 @@ import zju.edu.friendlyarm.pojo.LiverImage;
 
 import java.util.List;
 
+/**
+ * @author xhzhao
+ */
 @Service
 public interface LiverImageMapper {
     int deleteByPrimaryKey(Integer id);
