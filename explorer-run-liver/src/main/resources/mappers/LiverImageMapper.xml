@@ -28,7 +28,7 @@
     delete from liver_image
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="zju.edu.friendlyarm.pojo.LiverImage">
+  <insert id="insert" parameterType="zju.edu.friendlyarm.pojo.LiverImage" useGeneratedKeys="true" keyProperty="id">
     insert into liver_image (id, doctor_num, patient_num, 
       relative_path, image_name)
     values (#{id,jdbcType=INTEGER}, #{doctorNum,jdbcType=DOUBLE}, #{patientNum,jdbcType=DOUBLE}, 
