@@ -67,11 +67,12 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public void run(String imageName) {
+    public void run(Integer id) {
+        LiverImage image = imageMapper.selectByPrimaryKey(id);
         Python2Executor python2Executor = null;
         try {
             python2Executor = DefaultExecutorFactory.getExecutor(Python2Executor.class);
-            python2Executor.execute(fileAccessProperties.getStorePath() + "testUnet.py", imageName);
+            python2Executor.execute(fileAccessProperties.getStorePath() + "testUnet.py", image.getRelativePath());
         } catch (ExecutorNotFoundExecption | ExecuteException executorNotFoundExecption) {
             logger.info("{}执行出错", python2Executor);
         }

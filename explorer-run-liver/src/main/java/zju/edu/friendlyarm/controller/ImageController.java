@@ -49,9 +49,9 @@ public class ImageController {
     }
 
     @ApiOperation("模型运行")
-    @PostMapping("run")
-    public boolean runModel(String imageName) {
-        imageService.run(imageName);
+    @PostMapping("{id}/run")
+    public boolean runModel(@PathVariable Integer id) {
+        imageService.run(id);
         return true;
     }
 

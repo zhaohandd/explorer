@@ -23,9 +23,9 @@ public interface ImageService {
 
     /**
      * 模型运行，调用python
-     * @param imageName 图片名称
+     * @param id 图片id
      */
-    void run(String imageName);
+    void run(Integer id);
 
     /**
      * 根据医生账号和病患账号获取患者记录
