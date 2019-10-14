@@ -13,6 +13,7 @@ import zju.edu.als.executor.Python2Executor;
 import zju.edu.als.factory.DefaultExecutorFactory;
 import zju.edu.friendlyarm.mapper.LiverImageMapper;
 import zju.edu.friendlyarm.pojo.LiverImage;
+import zju.edu.friendlyarm.properties.FileAccessProperties;
 import zju.edu.friendlyarm.service.ImageService;
 import zju.edu.friendlyarm.util.FileAccessHelper;
 
@@ -34,7 +35,7 @@ public class ImageServiceImpl implements ImageService {
 
     private static Logger logger = LoggerFactory.getLogger(ImageServiceImpl.class);
 
-    private static final String HOME = "/home/user/Unet-CT/";
+    private final FileAccessProperties fileAccessProperties = new FileAccessProperties();
 
     @Autowired
     private LiverImageMapper imageMapper;
@@ -70,7 +71,7 @@ public class ImageServiceImpl implements ImageService {
         Python2Executor python2Executor = null;
         try {
             python2Executor = DefaultExecutorFactory.getExecutor(Python2Executor.class);
-            python2Executor.execute(HOME + "testUnet.py", imageName);
+            python2Executor.execute(fileAccessProperties.getStorePath() + "testUnet.py", imageName);
         } catch (ExecutorNotFoundExecption | ExecuteException executorNotFoundExecption) {
             logger.info("{}执行出错", python2Executor);
         }
