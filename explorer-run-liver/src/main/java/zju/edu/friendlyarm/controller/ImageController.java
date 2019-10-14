@@ -18,6 +18,7 @@ import zju.edu.friendlyarm.pojo.LiverImage;
 import zju.edu.friendlyarm.service.ImageService;
 import zju.edu.friendlyarm.util.FileAccessHelper;
 
+import javax.annotation.Resource;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
@@ -34,7 +35,7 @@ public class ImageController {
 
     @Autowired
     private ImageService imageService;
-    @Autowired
+    @Resource
     private LiverImageMapper imageMapper;
     @Autowired
     private FileAccessHelper fileAccessHelper;
@@ -54,7 +55,7 @@ public class ImageController {
         return true;
     }
 
-    @ApiOperation("运行返回的图片http地址")
+    @ApiOperation("运行原始图片http地址")
     @GetMapping("{id}/url")
     public String getImageUrl(@PathVariable Integer id) {
         LiverImage image = imageMapper.selectByPrimaryKey(id);
@@ -69,4 +70,23 @@ public class ImageController {
     public List<String> getImageUrls(@PathVariable Double doctorNum, @PathVariable Double patientNum) {
         return imageService.getOldRecords(doctorNum, patientNum);
     }
+
+    @ApiOperation("运行返回的图片http地址")
+    @GetMapping("{id}/result/url")
+    public String getResultUrl(@PathVariable Integer id) {
+        LiverImage image = imageMapper.selectByPrimaryKey(id);
+        String name = image.getRelativePath().substring(0, image.getRelativePath().lastIndexOf("."));
+        String jpg = image.getRelativePath().substring(image.getRelativePath().lastIndexOf("."));
+        String relativePath = name + "_result" + jpg;
+        return fileAccessHelper.buildHttpUrl(relativePath, image.getUpdateAt());
+    }
+
+    @ApiOperation("查询历史图片http地址")
+    @GetMapping("{doctorNum}/{patientNum}/result/url")
+    public List<String> getResultUrls(@PathVariable Double doctorNum, @PathVariable Double patientNum) {
+        return imageService.getResultRecords(doctorNum, patientNum);
+    }
+
+
+
 }

@@ -87,4 +87,18 @@ public class ImageServiceImpl implements ImageService {
         }
         return list;
     }
+
+    @Override
+    public List<String> getResultRecords(Double doctorNum, Double patientNum) {
+        List<String> list = new ArrayList<>();
+        List<LiverImage> images = imageMapper.selectByNum(doctorNum, patientNum);
+        for (LiverImage image : images) {
+            String name = image.getRelativePath().substring(0, image.getRelativePath().lastIndexOf("."));
+            String jpg = image.getRelativePath().substring(image.getRelativePath().lastIndexOf("."));
+            String relativePath = name + "_result" + jpg;
+            String url = fileAccessHelper.buildHttpUrl(relativePath, image.getUpdateAt());
+            list.add(url);
+        }
+        return list;
+    }
 }

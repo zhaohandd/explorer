@@ -35,4 +35,12 @@ public interface ImageService {
      */
     List<String> getOldRecords(Double doctorNum, Double patientNum);
 
+    /**
+     * 返回结果图片url
+     * @param doctorNum 医生账号
+     * @param patientNum 病人账号
+     * @return url的列表
+     */
+    List<String> getResultRecords(Double doctorNum, Double patientNum);
+
 }
