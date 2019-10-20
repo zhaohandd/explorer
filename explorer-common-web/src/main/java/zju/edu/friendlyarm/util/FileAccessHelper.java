@@ -43,7 +43,7 @@ public class FileAccessHelper {
         Objects.requireNonNull(doctorNum);
         Objects.requireNonNull(patientNum);
         Objects.requireNonNull(fileName);
-        return FILE_JOINER.join("data","image", doctorNum, patientNum, fileName);
+        return FILE_JOINER.join("image", doctorNum, patientNum, fileName);
     }
 
     /**

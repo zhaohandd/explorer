@@ -51,7 +51,11 @@ public class ImageController {
     @ApiOperation("模型运行")
     @PostMapping("{id}/run")
     public boolean runModel(@PathVariable Integer id) {
-        imageService.run(id);
+        try {
+            imageService.run(id);
+        } catch (Exception e) {
+            return false;
+        }
         return true;
     }
 

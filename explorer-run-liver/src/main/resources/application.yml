@@ -6,6 +6,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://10.13.81.186:3306/friendlyarm?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&useSSL=false&allowMultiQueries=true
+#    url: jdbc:mysql://127.0.0.1:3306/friendlyarm?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&useSSL=false&allowMultiQueries=true
     username: root
     password: lab205
 

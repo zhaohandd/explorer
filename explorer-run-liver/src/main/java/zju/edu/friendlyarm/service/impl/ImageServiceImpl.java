@@ -72,7 +72,7 @@ public class ImageServiceImpl implements ImageService {
         Python2Executor python2Executor = null;
         try {
             python2Executor = DefaultExecutorFactory.getExecutor(Python2Executor.class);
-            python2Executor.execute(fileAccessProperties.getStorePath() + "testUnet.py", image.getRelativePath());
+            python2Executor.execute("testUnet.py", image.getRelativePath());
         } catch (ExecutorNotFoundExecption | ExecuteException executorNotFoundExecption) {
             logger.info("{}执行出错", python2Executor);
         }
