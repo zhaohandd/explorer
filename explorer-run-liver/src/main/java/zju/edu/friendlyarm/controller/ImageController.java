@@ -57,6 +57,7 @@ public class ImageController {
             return false;
         }
         return true;
+
     }
 
     @ApiOperation("运行原始图片http地址")
