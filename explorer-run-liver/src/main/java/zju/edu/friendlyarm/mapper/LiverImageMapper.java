@@ -40,5 +40,5 @@ public interface LiverImageMapper {
      * @return
      */
 
-    List<LiverImage> selectByNum(@Param("doctorNum") Double doctorNum, @Param("patientNum") Double patientNum);
+    List<LiverImage> selectByNum(@Param("doctorNum") Integer doctorNum, @Param("patientNum") Integer patientNum);
 }

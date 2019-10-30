@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import zju.edu.als.execption.ExecuteException;
 import zju.edu.als.execption.ExecutorNotFoundExecption;
+import zju.edu.als.executor.GeneralExecutor;
 import zju.edu.als.executor.Python2Executor;
 import zju.edu.als.factory.DefaultExecutorFactory;
 import zju.edu.friendlyarm.mapper.LiverImageMapper;
@@ -17,6 +18,7 @@ import zju.edu.friendlyarm.properties.FileAccessProperties;
 import zju.edu.friendlyarm.service.ImageService;
 import zju.edu.friendlyarm.util.FileAccessHelper;
 
+import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -37,13 +39,16 @@ public class ImageServiceImpl implements ImageService {
 
     private final FileAccessProperties fileAccessProperties = new FileAccessProperties();
 
+    private final String path_cmd = "/home/pi/Documents/Unet-CT/testUnet1022.py" ;
+    private final String path_save = "/home/pi/Documents/data/" ;
+
     @Autowired
     private LiverImageMapper imageMapper;
     @Autowired
     private FileAccessHelper fileAccessHelper;
 
     @Override
-    public Integer createOrUpdate(Double doctorNum, Double patientNum, MultipartFile file) throws IOException {
+    public Integer createOrUpdate(Integer doctorNum, Integer patientNum, MultipartFile file) throws IOException {
         Map<File, MultipartFile> toSave = new HashMap<>(1);
         String fileName = file.getOriginalFilename();
         if (null != fileName) {
@@ -57,7 +62,10 @@ public class ImageServiceImpl implements ImageService {
         image.setRelativePath(fileAccessHelper.buildRelativePath(doctorNum, patientNum, fileName));
         imageMapper.insert(image);
 
-        toSave.put(new File(fileAccessHelper.buildStorePath(image.getRelativePath())), file);
+        //本机数据保存
+        File path = new File(fileAccessHelper.buildStorePath(image.getRelativePath()));
+        toSave.put(path, file);
+
 
         for (Map.Entry<File, MultipartFile> entry : toSave.entrySet()) {
             FileUtils.writeByteArrayToFile(entry.getKey(), entry.getValue().getBytes());
@@ -66,20 +74,35 @@ public class ImageServiceImpl implements ImageService {
         return image.getId();
     }
 
+//    @Override
+//    public void run(Integer id) {
+//        LiverImage image = imageMapper.selectByPrimaryKey(id);
+//        Python2Executor python2Executor = null;
+//        try {
+//            python2Executor = DefaultExecutorFactory.getExecutor(Python2Executor.class);
+//            String[] path = new String[1];
+//            path[0] = path_save + image.getRelativePath();
+//            python2Executor.execute(path_cmd, path);
+//        } catch (ExecutorNotFoundExecption | ExecuteException executorNotFoundExecption) {
+//            logger.info("{}执行出错", python2Executor);
+//        }
+//    }
+
     @Override
     public void run(Integer id) {
         LiverImage image = imageMapper.selectByPrimaryKey(id);
-        Python2Executor python2Executor = null;
+        GeneralExecutor general = null;
         try {
-            python2Executor = DefaultExecutorFactory.getExecutor(Python2Executor.class);
-            python2Executor.execute("testUnet.py", image.getRelativePath());
+            general = DefaultExecutorFactory.getExecutor(GeneralExecutor.class);
+            String path = path_save + image.getRelativePath();
+            general.execute("python", path_cmd, path);
         } catch (ExecutorNotFoundExecption | ExecuteException executorNotFoundExecption) {
-            logger.info("{}执行出错", python2Executor);
+            logger.info("{}执行出错", general);
         }
     }
 
     @Override
-    public List<String> getOldRecords(Double doctorNum, Double patientNum) {
+    public List<String> getOldRecords(Integer doctorNum, Integer patientNum) {
         List<String> list = new ArrayList<>();
         List<LiverImage> images = imageMapper.selectByNum(doctorNum, patientNum);
         for (LiverImage image : images) {
@@ -90,7 +113,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public List<String> getResultRecords(Double doctorNum, Double patientNum) {
+    public List<String> getResultRecords(Integer doctorNum, Integer patientNum) {
         List<String> list = new ArrayList<>();
         List<LiverImage> images = imageMapper.selectByNum(doctorNum, patientNum);
         for (LiverImage image : images) {

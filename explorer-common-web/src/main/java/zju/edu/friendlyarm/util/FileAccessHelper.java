@@ -39,7 +39,7 @@ public class FileAccessHelper {
      * @param fileName 文件名
      * @return 相对路径，用以存到数据库
      */
-    public String buildRelativePath(Double doctorNum, Double patientNum, String fileName) {
+    public String buildRelativePath(Integer doctorNum, Integer patientNum, String fileName) {
         Objects.requireNonNull(doctorNum);
         Objects.requireNonNull(patientNum);
         Objects.requireNonNull(fileName);

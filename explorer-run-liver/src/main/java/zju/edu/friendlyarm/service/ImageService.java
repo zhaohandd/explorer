@@ -19,7 +19,7 @@ public interface ImageService {
      * @return 成功的id
      * @throws IOException
      */
-    Integer createOrUpdate(Double doctorNum, Double patientNum, MultipartFile file) throws IOException;
+    Integer createOrUpdate(Integer doctorNum, Integer patientNum, MultipartFile file) throws IOException;
 
     /**
      * 模型运行，调用python
@@ -33,7 +33,7 @@ public interface ImageService {
      * @param patientNum 病患账号
      * @return url的列表
      */
-    List<String> getOldRecords(Double doctorNum, Double patientNum);
+    List<String> getOldRecords(Integer doctorNum, Integer patientNum);
 
     /**
      * 返回结果图片url
@@ -41,6 +41,6 @@ public interface ImageService {
      * @param patientNum 病人账号
      * @return url的列表
      */
-    List<String> getResultRecords(Double doctorNum, Double patientNum);
+    List<String> getResultRecords(Integer doctorNum, Integer patientNum);
 
 }

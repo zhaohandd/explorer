@@ -19,11 +19,11 @@ public class LiverImage {
 
     @ApiModelProperty(value = "医生ID账号")
     @NotNull
-    private Double doctorNum;
+    private Integer doctorNum;
 
     @ApiModelProperty(value = "病人ID账号")
     @NotNull
-    private Double patientNum;
+    private Integer patientNum;
 
     @ApiModelProperty(value = "图片相对路径，文件夹使用“/”分割")
     @NotNull

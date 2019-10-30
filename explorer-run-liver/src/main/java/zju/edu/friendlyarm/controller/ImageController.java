@@ -43,7 +43,7 @@ public class ImageController {
 
     @ApiOperation("图片文件上传")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Integer createOrUpdate(@RequestParam @NotNull Double doctorNum, @RequestParam @NotNull Double patientNum, @RequestPart MultipartFile file) throws IOException {
+    public Integer createOrUpdate(@RequestParam @NotNull Integer doctorNum, @RequestParam @NotNull Integer patientNum, @RequestPart MultipartFile file) throws IOException {
         return imageService.createOrUpdate(doctorNum, patientNum, file);
 
     }
@@ -57,7 +57,6 @@ public class ImageController {
             return false;
         }
         return true;
-
     }
 
     @ApiOperation("运行原始图片http地址")
@@ -72,7 +71,7 @@ public class ImageController {
 
     @ApiOperation("查询历史图片http地址")
     @GetMapping("{doctorNum}/{patientNum}/url")
-    public List<String> getImageUrls(@PathVariable Double doctorNum, @PathVariable Double patientNum) {
+    public List<String> getImageUrls(@PathVariable Integer doctorNum, @PathVariable Integer patientNum) {
         return imageService.getOldRecords(doctorNum, patientNum);
     }
 
@@ -88,7 +87,7 @@ public class ImageController {
 
     @ApiOperation("查询历史图片http地址")
     @GetMapping("{doctorNum}/{patientNum}/result/url")
-    public List<String> getResultUrls(@PathVariable Double doctorNum, @PathVariable Double patientNum) {
+    public List<String> getResultUrls(@PathVariable Integer doctorNum, @PathVariable Integer patientNum) {
         return imageService.getResultRecords(doctorNum, patientNum);
     }
 
