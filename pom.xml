@@ -9,6 +9,7 @@
         <module>explorer-common-web</module>
         <module>explorer-run-liver</module>
         <module>explorer-generator</module>
+        <module>explorer-cloud</module>
     </modules>
 
     <parent>

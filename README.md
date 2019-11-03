@@ -14,5 +14,8 @@
 ## explorer-run-liver
 **承担核心业务逻辑**
 
+## explorer-cloud
+**执行远程服务器与本地同步等云上任务**
+
 #### 注：Swagger文档访问 http://localhost:9001/swagger-ui.html
 
