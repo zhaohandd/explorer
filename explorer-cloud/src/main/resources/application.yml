@@ -1,2 +1,6 @@
 server:
   port: 9002
+
+uploader:
+  copy-images-to: \\10.13.81.186\TempImg
+  cron-expression: 0 0 1 * * ?
