@@ -28,9 +28,9 @@ public class SynchTask {
     private UploaderProperties properties;
 
     /**
-     * 每天凌晨1:00执行同步任务
+     * 每天凌晨3:00执行同步任务
      */
-    @Scheduled(cron = "0 0 1 * * ?")
+    @Scheduled(cron = "0 0 3 * * ?")
     public void picUploadTask() {
         // TODO: scp 免密传输文件
         log.info(" >>> 同步开始 >>> ");
