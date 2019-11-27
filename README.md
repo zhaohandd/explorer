@@ -1,6 +1,7 @@
 # explorer
+## 分布式版本
 ### 探索者：友善之臂上Java与深度学习模型交互
-*Springboot + Mybatis + Swagger*
+*Springboot + SpringCloud + Mybatis + Swagger*
 
 ## explorer-generator
 **Mybatis代码生成器配置**

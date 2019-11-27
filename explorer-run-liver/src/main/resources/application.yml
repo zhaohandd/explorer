@@ -1,9 +1,8 @@
 server:
-  port: 3306
+  port: 9001
 
 spring:
   datasource:
-    type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.jdbc.Driver
 
     #---  服务器url  ---#
@@ -17,6 +16,8 @@ spring:
 #    password: 123
 
     #---  T4 url  ---#
+  application:
+    name: explorer-run-liver
 #    url: jdbc:mysql://127.0.0.1:3306/friendlyarm?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&useSSL=false&allowMultiQueries=true&serverTimezone=Asia/Shanghai
 #    username: root
 #    password: 12345678
@@ -24,3 +25,11 @@ spring:
 mybatis:
   mapper-locations: classpath:mappers/*.xml
   type-aliases-package: zju.edu.friendlyarm.pojo
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9000/eureka/
+  instance:
+    prefer-ip-address: true

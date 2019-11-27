@@ -20,7 +20,6 @@ import zju.edu.friendlyarm.service.ImageService;
 import zju.edu.friendlyarm.util.FileAccessHelper;
 
 import javax.annotation.Resource;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.List;
