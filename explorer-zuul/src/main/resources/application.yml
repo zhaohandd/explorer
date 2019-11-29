@@ -1,0 +1,19 @@
+server:
+  port: 9100
+
+spring:
+  application:
+    name: explorer-zuul
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9000/eureka/
+
+zuul:
+  host:
+    max-total-connections: 500
+  routes:
+    run-liver:
+      path: /api/run/image/**
+      service-id: explorer-run-liver

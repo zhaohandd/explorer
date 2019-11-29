@@ -11,6 +11,7 @@
         <module>explorer-generator</module>
         <module>explorer-cloud</module>
         <module>explorer-eureka</module>
+        <module>explorer-zuul</module>
     </modules>
 
     <parent>

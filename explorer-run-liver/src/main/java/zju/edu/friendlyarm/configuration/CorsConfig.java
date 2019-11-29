@@ -24,6 +24,7 @@ import java.util.List;
 /**
  * @author xhzhao
  */
+@Deprecated
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 
