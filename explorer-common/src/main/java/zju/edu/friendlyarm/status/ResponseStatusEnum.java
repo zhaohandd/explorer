@@ -20,7 +20,7 @@ public enum ResponseStatusEnum implements ResponseStatus {
     ILLEGAL_PARAMETER(10002, "提示", "网络异常，请重试"),
 
     /**
-     * 未经认证 todo.需要优化文案
+     * 未经认证
      */
     UNAUTHORIZED(10003, "提示", "请重新登录"),
 

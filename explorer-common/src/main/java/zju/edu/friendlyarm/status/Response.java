@@ -18,13 +18,26 @@ public class Response<T> implements Serializable {
     public static Response FAILURE = Response.valueOf(Status.E200_FAILURE);
 
     public static enum Status {
-        OK(0, "成功"), E100_FAILURE(-100, "参数异常，请重试"), E200_FAILURE(-200, "操作失败，请重试"), E421_NOT_AUTHORIZED(-421, "身份验证未通过"), E500_ERROR(-500, "服务器异常，请重试"),
-
         /**
-         * 请求成功
+         * 成功
          */
-        //        OK(10000, "OK"),
-
+        OK(0, "成功"),
+        /**
+         * 参数异常，请重试
+         */
+        E100_FAILURE(-100, "参数异常，请重试"),
+        /**
+         * 操作失败，请重试
+         */
+        E200_FAILURE(-200, "操作失败，请重试"),
+        /**
+         * 身份验证未通过
+         */
+        E421_NOT_AUTHORIZED(-421, "身份验证未通过"),
+        /**
+         * 服务器异常，请重试
+         */
+        E500_ERROR(-500, "服务器异常，请重试"),
         /**
          * 通用错误
          */
@@ -123,7 +136,7 @@ public class Response<T> implements Serializable {
     }
 
     private int code;
-    private String title = "提示";   //错误提示场景中，需要增加标题文案
+    private String title = "提示";
     private String msg;
     private T data;
 
