@@ -28,7 +28,7 @@ public class ServiceInitApplicationRunner implements ApplicationRunner {
             GeneralExecutor general = null;
             try {
                 general = DefaultExecutorFactory.getExecutor(GeneralExecutor.class);
-                general.execute("python", "service.py");
+                general.execute("python", "service_init.sh");
             } catch (ExecutorNotFoundExecption | ExecuteException executorNotFoundExecption) {
                 logger.info("{}执行出错", general);
             }
