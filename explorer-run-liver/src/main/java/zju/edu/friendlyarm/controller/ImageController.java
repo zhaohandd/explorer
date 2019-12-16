@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import zju.edu.friendlyarm.mapper.LiverImageMapper;
 import zju.edu.friendlyarm.pojo.LiverImage;
+import zju.edu.friendlyarm.response.ErrorCode;
+import zju.edu.friendlyarm.response.HttpResult;
 import zju.edu.friendlyarm.service.ImageService;
 import zju.edu.friendlyarm.util.FileAccessHelper;
 
@@ -43,9 +44,14 @@ public class ImageController {
 
     @ApiOperation("图片文件上传")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Integer createOrUpdate(@RequestParam @NotNull Integer doctorNum, @RequestParam @NotNull Integer patientNum, @RequestPart MultipartFile file) throws IOException {
-        return imageService.createOrUpdate(doctorNum, patientNum, file);
-
+    public HttpResult<Integer> createOrUpdate(@RequestParam @NotNull Integer doctorNum, @RequestParam @NotNull Integer patientNum, @RequestPart MultipartFile file) throws IOException {
+        Integer result;
+        try {
+            result = imageService.createOrUpdate(doctorNum, patientNum, file);
+        } catch (Exception ex) {
+            return HttpResult.build(ErrorCode.FAIL);
+        }
+        return HttpResult.build(ErrorCode.SUCCESS, result);
     }
 
     @ApiOperation("模型运行")
