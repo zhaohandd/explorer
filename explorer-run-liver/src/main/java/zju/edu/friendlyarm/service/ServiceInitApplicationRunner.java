@@ -10,6 +10,9 @@ import zju.edu.als.execption.ExecutorNotFoundExecption;
 import zju.edu.als.executor.GeneralExecutor;
 import zju.edu.als.factory.DefaultExecutorFactory;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * @author xhzhao
  */
@@ -20,7 +23,8 @@ public class ServiceInitApplicationRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
-        new Thread(() -> {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(() -> {
             GeneralExecutor general = null;
             try {
                 general = DefaultExecutorFactory.getExecutor(GeneralExecutor.class);
@@ -28,6 +32,6 @@ public class ServiceInitApplicationRunner implements ApplicationRunner {
             } catch (ExecutorNotFoundExecption | ExecuteException executorNotFoundExecption) {
                 logger.info("{}执行出错", general);
             }
-        }).start();
+        });
     }
 }
