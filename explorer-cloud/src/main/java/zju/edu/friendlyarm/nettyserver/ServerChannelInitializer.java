@@ -2,7 +2,6 @@ package zju.edu.friendlyarm.nettyserver;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
-import zju.edu.friendlyarm.nettyclient.NettyClientHandler;
 
 /**
  * @author xhzhao
