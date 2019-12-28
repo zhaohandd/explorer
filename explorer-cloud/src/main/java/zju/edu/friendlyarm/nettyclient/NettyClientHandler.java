@@ -37,6 +37,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
         logger.info("client receives content length: {}", bytes.length);
         fos.write(bytes);
         fos.flush();
+        fos.close();
     }
 
     @Override

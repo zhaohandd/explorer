@@ -31,6 +31,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
             ctx.writeAndFlush(msg);
             msg.clear();
         }
+        in.close();
     }
 
     @Override
