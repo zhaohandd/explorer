@@ -9,11 +9,16 @@ import java.net.SocketException;
 import java.util.Enumeration;
 
 /**
+ * Http 工具类
  * @author xhzhao
  */
 @Slf4j
 public class HttpUtils {
 
+    /**
+     * 获取本地ip地址
+     * @return ip
+     */
     public static String getIp() {
         try {
             Enumeration<NetworkInterface> allNetInterfaces = NetworkInterface.getNetworkInterfaces();
